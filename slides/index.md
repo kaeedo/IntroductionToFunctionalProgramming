@@ -1,258 +1,112 @@
-- title : React Native with F#
-- description : Introduction to React Native with F#
-- author : Steffen Forkmann
+- title : Functional Programming with F#
+- description : Introduction to functional programming using F#
+- author : Kai Ito
 - theme : night
 - transition : default
 
 ***
 
-## React Native with F#
+<br /><br /><br /><br />
 
-<br />
-<br />
+## Functional Programming with F#
 
-### Modern mobile app development
+<br /><br /><br />
 
-<br />
-<br />
-Steffen Forkmann - [@sforkmann](http://www.twitter.com/sforkmann)
+* Kai Ito
 
 ***
 
-### Modern mobile app development?
+### What is F#
 
-* UI/UX
-    * "Native mobile apps"
-    * Performance
-* Tooling
-    * Hot loading
-    * IntelliSense
-* Maintainability
-    * Easy to debug
-    * Correctness
+* Functional first, multi-paradigm language
+* Runs on .Net (and Mono, Xamarin, .Net Core)
+* First released in 2005 by Microsoft Research
+* Now belongs to The F# Software Foundation
+* Open Source
 
 ---
 
-### "Native" UI
+### Syntax in a nutshell
 
- <img src="images/meter.png" style="background: transparent; border-style: none;"  width=300 />
+* ML syntax
+* Type inference
+* Whitespace significant
+* Expression-based
+* Immutable by default
+
+<br />
+
+    [lang=fsharp]
+    let thisIsAnInt = 1
+    let thisIsAString = "This is a string"
+    let optionalTypeAnnotation: bool = true
+
+    let listOfInts = [ 1; 2; 3 ]
+    let listOfStrings =
+        [ "foo"
+          "bar"
+          "baz" ]
 
 ---
 
-### Tooling
+### Functions
 
-<img src="images/hotloading.gif" style="background: transparent; border-style: none;"  />
+* First class functions
+* Last expression is the return "statement"
 
-*** 
+<br />
 
-### Model - View - Update
+    [lang=fsharp]
+    let add a b =
+        a + b
 
-#### "Elm - Architecture"
+    let sign num =
+        if num > 0 then "positive"
+        elif num < 0 then "negative"
+        else "zero"
 
- <img src="images/Elm.png" style="background: white;" width=700 />
-
-
- <small>http://danielbachler.de/2016/02/11/berlinjs-talk-about-elm.html</small>
-
-
---- 
-
-### Model - View - Update
-
-    // MODEL
-
-    type Model = int
-
-    type Msg =
-    | Increment
-    | Decrement
-
-    let init() : Model = 0
+    let otherSign num =
+        match num with
+        | n when n > 0 -> "positive"
+        | n when n < 0 -> "negative"
+        | _ -> "zero"
 
 ---
 
-### Model - View - Update
+### Piping
 
-    // VIEW
+<br />
 
-    let view model dispatch =
-        div []
-            [ button [ OnClick (fun _ -> dispatch Decrement) ] [ str "-" ]
-              div [] [ str (model.ToString()) ]
-              button [ OnClick (fun _ -> dispatch Increment) ] [ str "+" ] ]
+    [lang=fsharp]
+    let printer f = printfn "Number is: %f" f
+
+    [0.0..100.0]
+    |> List.filter (fun i -> i % 2.0 = 0.0)
+    |> List.map (fun i -> i ** 2.0)
+    |> List.iter printer
 
 ---
 
-### Model - View - Update
+### Records
 
-    // UPDATE
-
-    let update (msg:Msg) (model:Model) =
-        match msg with
-        | Increment -> model + 1
-        | Decrement -> model - 1
-
----
-
-### Model - View - Update
-
-    // wiring things up
-
-    Program.mkSimple init update view
-    |> Program.withConsoleTrace
-    |> Program.withReact "elmish-app"
-    |> Program.run
-
----
-
-### Model - View - Update
-
-# Demo
-
-***
-
-### Sub-Components
-
-    // MODEL
-
-    type Model = {
-        Counters : Counter.Model list
-    }
-
-    type Msg = 
-    | Insert
-    | Remove
-    | Modify of int * Counter.Msg
-
-    let init() : Model =
-        { Counters = [] }
-
----
-
-### Sub-Components
-
-    // VIEW
-
-    let view model dispatch =
-        let counterDispatch i msg = dispatch (Modify (i, msg))
-
-        let counters =
-            model.Counters
-            |> List.mapi (fun i c -> Counter.view c (counterDispatch i)) 
-        
-        div [] [ 
-            yield button [ OnClick (fun _ -> dispatch Remove) ] [  str "Remove" ]
-            yield button [ OnClick (fun _ -> dispatch Insert) ] [ str "Add" ] 
-            yield! counters ]
-
----
-
-### Sub-Components
-
-    // UPDATE
-
-    let update (msg:Msg) (model:Model) =
-        match msg with
-        | Insert ->
-            { Counters = Counter.init() :: model.Counters }
-        | Remove ->
-            { Counters = 
-                match model.Counters with
-                | [] -> []
-                | x :: rest -> rest }
-        | Modify (id, counterMsg) ->
-            { Counters =
-                model.Counters
-                |> List.mapi (fun i counterModel -> 
-                    if i = id then
-                        Counter.update counterMsg counterModel
-                    else
-                        counterModel) }
-
----
-
-### Sub-Components
-
-# Demo
-
-***
-
-### React
-
-* Facebook library for UI 
-* <code>state => view</code>
-* Virtual DOM
-
----
-
-### Virtual DOM - Initial
+* Simple aggregates of data
+* Can be struct or reference types (since 4.1)
+* Has structural equality
 
 <br />
-<br />
 
+    [lang=fsharp]
+    type User =
+        { FirstName: string
+          LastName: string
+          Age: int }
 
- <img src="images/onchange_vdom_initial.svg" style="background: white;" />
+    let kai = { FirstName = "Kai"; LastName = "Ito"; Age = 27 }
+    let cloneOfKai = { FirstName = "Kai"; LastName = "Ito"; Age = 27 }
 
-<br />
-<br />
+    printfn "%b" (kai = cloneOfKai) // true
 
- <small>http://teropa.info/blog/2015/03/02/change-and-its-detection-in-javascript-frameworks.html</small>
+    let olderKai = { kai with Age = kai.Age + 1 }
 
----
-
-### Virtual DOM - Change
-
-<br />
-<br />
-
-
- <img src="images/onchange_vdom_change.svg" style="background: white;" />
-
-<br />
-<br />
-
- <small>http://teropa.info/blog/2015/03/02/change-and-its-detection-in-javascript-frameworks.html</small>
-
----
-
-### Virtual DOM - Reuse
-
-<br />
-<br />
-
-
- <img src="images/onchange_immutable.svg" style="background: white;" />
-
-<br />
-<br />
-
- <small>http://teropa.info/blog/2015/03/02/change-and-its-detection-in-javascript-frameworks.html</small>
-
-
-*** 
-
-### ReactNative
-
- <img src="images/ReactNative.png" style="background: white;" />
-
-
- <small>http://timbuckley.github.io/react-native-presentation</small>
-
-***
-
-### Show me the code
-
-*** 
-
-### TakeAways
-
-* Learn all the FP you can!
-* Simple modular design
-
-*** 
-
-### Thank you!
-
-* https://github.com/fable-compiler/fable-elmish
-* https://ionide.io
-* https://facebook.github.io/react-native/
+    printfn "%O" <| olderKai.Age // 28
+    printfn "%O" <| kai.Age // 27
