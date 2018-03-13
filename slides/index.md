@@ -138,3 +138,41 @@
             printfn "Circle with radius %f" radius
         | Triangle (side1, side2, side3) ->
             printfn "Triangle with sides %f %f %f" side1 side2 side3
+
+***
+
+### What is Functional Programming
+
+* Function Composition over Inheritance
+* Expressions over Statements
+* Referential Transparency over Mutability
+* Use of higher-order functions
+* Use of pure functions
+* Use of recursion
+
+---
+
+### Benefits of the Functional paradigm
+
+* One directional data flow
+  * Easier to reason about
+  * Easier to test
+  * Easier to debug
+* Immutability
+  * Less bugs
+  * No invalid state
+  * Thread safety
+* Higher order functions
+  * High level abstractions
+  * Code reusability
+* "Pit of Success"
+* "If it compiles, it works"
+
+***
+
+### How to accomplish this
+
+* Use of Pure Functions
+* Partial function application and Function currying
+* Monads
+* Onion Architecture
