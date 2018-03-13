@@ -65,11 +65,11 @@
         elif num < 0 then "negative"
         else "zero"
 
-    let otherSign num =
-        match num with
-        | n when n > 0 -> "positive"
-        | n when n < 0 -> "negative"
-        | _ -> "zero"
+    let rec fib n =
+        match n with
+        | 1 -> 1
+        | 2 -> 1
+        | n -> fib(n-1) + fib(n-2)
 
 ---
 
@@ -108,5 +108,33 @@
 
     let olderKai = { kai with Age = kai.Age + 1 }
 
-    printfn "%O" <| olderKai.Age // 28
-    printfn "%O" <| kai.Age // 27
+    printfn "%i" <| olderKai.Age // 28
+    printfn "%i" <| kai.Age // 27
+
+---
+
+### Discrimated Unions
+
+* More powerful enum
+* Data point that can have multiple different types
+
+<br />
+
+    [lang=fsharp]
+    type Shape =
+    | Rectangle of width : float * length : float
+    | Circle of radius : float
+    | Triangle of float * float * float
+
+    let rectangle = Rectangle (2.0, 5.0)
+    let circle = Circle 2.5
+    let triangle = Triangle (6.1, 2.0, 3.7)
+
+    let whichShape shape =
+        match shape with
+        | Rectangle (width, length) ->
+            printfn "Rectangle with sides %f %f" width length
+        | Circle radius ->
+            printfn "Circle with radius %f" radius
+        | Triangle (side1, side2, side3) ->
+            printfn "Triangle with sides %f %f %f" side1 side2 side3
