@@ -148,6 +148,7 @@
 * Referential Transparency over Mutability
 * Use of higher-order functions
 * Use of pure functions
+* No Null
 
 ---
 
@@ -184,18 +185,18 @@
 ---
 
     [lang=fsharp]
-    let parseDateTime dateTime = System.DateTime.Parse(dateTime)
-    let formatDate (date: System.DateTime) = date.ToString("d")
+    let parseDateTime (dateTime: string) = System.DateTime.Parse(dateTime)
+    let getYear (date: System.DateTime) = date.Year
 
-    let formattedCurrentDate =
+    let currentYear: int =
         let date = parseDateTime "13-03-2018 12:00am"
-        formatDate date
+        getYear date
 
-    printfn "The current Date is: %s" formattedCurrentDate
-    // The current Date is: 13.03.2018
+    printfn "The current year is: %i" currentYear
+    // The current year is: 2018
 
-    let composedFormatDate = parseDateTime >> formatDate
-    let formattedFromComposed = composedFormatDate "13-03-2018 12:00am"
+    let composedGetYear: string -> int = parseDateTime >> getYear
+    let yearFromComposed: int = composedGetYear "13-03-2018 12:00am"
 
-    printfn "The current Date from composed function is: %s" formattedFromComposed
-    // The current Date from composed function is: 13.03.2018
+    printfn "The current year from composed function is: %i" yearFromComposed
+    // The current year from composed function is: 2018
