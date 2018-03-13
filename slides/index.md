@@ -148,12 +148,14 @@
 * Referential Transparency over Mutability
 * Use of higher-order functions
 * Use of pure functions
-* Use of recursion
 
 ---
 
 ### Benefits of the Functional paradigm
 
+* Higher order functions
+  * High level abstractions
+  * Code reusability
 * One directional data flow
   * Easier to reason about
   * Easier to test
@@ -162,17 +164,38 @@
   * Less bugs
   * No invalid state
   * Thread safety
-* Higher order functions
-  * High level abstractions
-  * Code reusability
 * "Pit of Success"
 * "If it compiles, it works"
 
 ***
 
-### How to accomplish this
+### Function Composition
+* Compose multiple functions into one function
+* Code reusability without verbosity
 
-* Use of Pure Functions
-* Partial function application and Function currying
-* Monads
-* Onion Architecture
+---
+
+<img src="images/TwoSeparateFunctions.jpg" />
+
+---
+
+<img src="images/ComposedFunction.jpg" />
+
+---
+
+    [lang=fsharp]
+    let parseDateTime dateTime = System.DateTime.Parse(dateTime)
+    let formatDate (date: System.DateTime) = date.ToString("d")
+
+    let formattedCurrentDate =
+        let date = parseDateTime "13-03-2018 12:00am"
+        formatDate date
+
+    printfn "The current Date is: %s" formattedCurrentDate
+    // The current Date is: 13.03.2018
+
+    let composedFormatDate = parseDateTime >> formatDate
+    let formattedFromComposed = composedFormatDate "13-03-2018 12:00am"
+
+    printfn "The current Date from composed function is: %s" formattedFromComposed
+    // The current Date from composed function is: 13.03.2018
