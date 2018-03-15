@@ -8,9 +8,9 @@ let updateNameInDb id name =
     else
         Some { Id = id; Name = name }
 
-let sendResponse id name =
+let trySendResponse id name =
     try
-        Some <| sprintf """{"id":%i, "name":"%s"}""" id name
+        Some (sprintf """{"id":%i, "name":"%s"}""" id name)
     with
     | :? Exception ->
         None
@@ -36,9 +36,9 @@ let send input =
     let id = input.Id
     let name = input.Name
 
-    match sendResponse id name with
+    match trySendResponse id name with
     | Some s ->
-        Success <| sprintf "Responding with JSON: %s" s
+        Success (sprintf "Responding with JSON: %s" s)
     | None ->
         Failure "Couldn't serialize to JSON for some reason"
 

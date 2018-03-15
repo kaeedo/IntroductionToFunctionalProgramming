@@ -1,0 +1,4 @@
+{
+    "FSharp.unusedDeclarationsAnalyzer": true,
+    "FSharp.linter": true
+}

@@ -147,10 +147,9 @@
 
 * Function Composition over Inheritance
 * Expressions over Statements
-* Referential Transparency over Mutability
+* Immutability
 * Use of higher-order functions
 * Use of pure functions
-* No Null
 
 ---
 
@@ -172,10 +171,89 @@
 
 ***
 
-### Functional Domain Modelling
+### Benefits of the F# type system
 
 * No null
 * Make illegal states unrepresentable
+* Use types to represent the domain
+* Types can also be used to encode business logic
+
+---
+
+### The Option type
+
+    [lang=fsharp]
+    type Option<'a> =
+    | Some of 'a
+    | None
+
+    let validInt = Some 1
+    let invalidInt = None
+
+    let numbers = [ 1; 2; 3; 4; ]
+    let foundNumber = numbers |> List.tryFind (fun x -> x = 4)
+    let missingNumber = numbers |> List.tryFind (fun x -> x = 50)
+
+    printfn "The number is: %i" foundNumber
+    // Compile Error: Type mismatch: Expecting "int" but got "int option"
+
+    let printInt input =
+        match input with
+        | Some i -> printfn "The number is: %i" i
+        | None -> printfn "Didn't find number"
+
+    printInt foundNumber // The number is: 4
+    printInt missingNumber // Didn't find number
+
+' This is how a lack of value is represented
+' Many standard library and 3rd party libraries use the Option type as a return value
+' Why is this useful?
+' The compiler forces you to handle both cases
+' Forces you to think about what happens when you get an unexpected result
+
+---
+
+### Making illegal state unrepresentable
+* Image business log where a User either needs an email address or phone number or both
+* Requried to have at least one of them
+
+
+    [lang=fsharp]
+    type ContactUser = { Username: string; Email: string option; PhoneNumber: string option }
+
+    let createUser username emailAddress phoneNumber =
+        // Logic to ensure either email address or phone is supplied
+        // Error prone
+
+        { Username = "kaiito"; Email = "kai.ito@zuehlke.com"; PhoneNumber = "089 555 1234" }
+
+---
+
+### F# Type System to the rescue
+    [lang=fsharp]
+    type ContactInformation =
+    | Email of string
+    | PhoneNumber of string
+    | EmailAndPhone of string * string
+
+    type SafeContactUser = { Username: string; Contact: ContactInformation }
+
+    let email = Email "kai.ito@zuehlke.com"
+    let phoneNumber = PhoneNumber "089 555 1234"
+    let emailAndPhone = EmailAndPhone ("kai.ito@zuehlke.com", "089 555 1234")
+
+    let user1 = { Username = "kaiito"; Contact = email }
+    let user2 = { Username = "kaiito"; Contact = phoneNumber }
+    let user3 = { Username = "kaiito"; Contact = emailAndPhone }
+
+    let user4 = { Username = "kaiito"; Contact = null } // Compiler Error
+    let user5 = { Username = "kaiito"; Contact = "someString" } // Compiler Error
+
+' When deconstructing the Contact information, automatically know what kind of contact information it is
+
+' Assumes happy path
+' Validation has been done elsewhere
+' Goes along with pit of success
 
 ***
 
@@ -209,6 +287,9 @@
     printfn "The current year from composed function is: %i" yearFromComposed
     // The current year from composed function is: 2018
 
+***
+
+### Function Currying
 
 ***
 
@@ -259,6 +340,9 @@
 
 ### Demo
 
+' Railway oriented programming can do much more, for example running multiple tracks in parallel
+' or using single track functions, or having dead end tracks.
+' The standard library already includes several helper methods, but there also exists several open source libraries for working with RoP, one such library is called Chessie
 
 ***
 
