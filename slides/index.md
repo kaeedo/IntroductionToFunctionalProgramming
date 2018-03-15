@@ -47,6 +47,8 @@
           "bar"
           "baz" ]
 
+' let declarations are called values instead of variables
+
 ---
 
 ### Functions
@@ -170,6 +172,13 @@
 
 ***
 
+### Functional Domain Modelling
+
+* No null
+* Make illegal states unrepresentable
+
+***
+
 ### Function Composition
 * Compose multiple functions into one function
 * Code reusability without verbosity
@@ -188,9 +197,8 @@
     let parseDateTime (dateTime: string) = System.DateTime.Parse(dateTime)
     let getYear (date: System.DateTime) = date.Year
 
-    let currentYear: int =
-        let date = parseDateTime "13-03-2018 12:00am"
-        getYear date
+    let date = parseDateTime "13-03-2018 12:00am"
+    let currentYear: int = getYear date
 
     printfn "The current year is: %i" currentYear
     // The current year is: 2018
@@ -200,3 +208,59 @@
 
     printfn "The current year from composed function is: %i" yearFromComposed
     // The current year from composed function is: 2018
+
+
+***
+
+### Railway Oriented Programming
+* Error handling through function composition
+* Clean control flow
+* Treat errors as first class citizens
+
+' Not just exceptions. Any errors, for example validation messages as well
+
+---
+
+<img src="images/RoP1.jpg" />
+
+' Let's take a look at our Red Circle to Yellow Star function from earlier
+' What happens when some kind of error occurs?
+
+---
+
+<img src="images/RoP2.jpg" />
+
+' We can model our function like a railway switch
+' We have our input, and we have a happy path, and an error path
+' The happy path can cause an error, but the error path can't go back to the happy path
+
+---
+
+<img src="images/RoP3.jpg" />
+
+' And just like real rail tracks, we can easily combine them
+' But since we're combining functions, we can easily Compose them like we saw earlier
+' However, now you might ask, what happens to the end of the error track. Where does that go?
+
+---
+
+<img src="images/RoP4.jpg" />
+
+' We can expand the input of our functions to take in an error as well
+' As I mentioned a moment ago, once we are on an error path, we won't be going back to the happy path
+' Reason being, we will no longer have valid input for the next part in our workflow, which would cause additional errors to occur
+
+---
+
+<img src="images/RoP5.jpg" />
+' We can now expand this model to compose as many functions as we want, creating an entire workflow
+
+---
+
+### Demo
+
+
+***
+
+### Monads
+* A monad is just a monoid in the category of endofunctors
