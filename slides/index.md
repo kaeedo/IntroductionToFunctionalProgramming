@@ -115,7 +115,7 @@
 
 ---
 
-### Discrimated Unions
+### Discriminated Unions
 
 * More powerful enum
 * Data point that can have multiple different types
@@ -166,8 +166,18 @@
   * Less bugs
   * No invalid state
   * Thread safety
-* "Pit of Success"
 * "If it compiles, it works"
+* "Pit of Success"
+
+---
+
+<img src="images/MountainOfSuccess.jpg" />
+
+' The ball is your project and its architecture
+' The top of the mountain is a successful
+' Takes a lot of hard work and discipline
+' However, the moment you or someone else on the team makes a mistake, all that hard work is undone
+' For example, making a database call directly from a Domain Model, instead of going through predefined services and other abstractions
 
 ***
 
@@ -215,7 +225,7 @@
 
 ### Making illegal state unrepresentable
 * Image business log where a User either needs an email address or phone number or both
-* Requried to have at least one of them
+* Required to have at least one of them
 
 
     [lang=fsharp]
@@ -263,11 +273,11 @@
 
 ---
 
-<img src="images/TwoSeparateFunctions.jpg" />
+<img src="images/Composition1.jpg" />
 
 ---
 
-<img src="images/ComposedFunction.jpg" />
+<img src="images/Composition2.jpg" />
 
 ---
 
