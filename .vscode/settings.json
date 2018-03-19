@@ -1,4 +1,5 @@
 {
     "FSharp.unusedDeclarationsAnalyzer": true,
-    "FSharp.linter": true
+    "FSharp.linter": true,
+    "editor.fontLigatures": false
 }

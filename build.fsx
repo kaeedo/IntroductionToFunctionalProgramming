@@ -9,10 +9,10 @@
 
 // Git configuration (used for publishing documentation in gh-pages branch)
 // The profile where the project is posted
-let gitOwner = "myGitUser"
+let gitOwner = "kaeedo"
 let gitHome = "https://github.com/" + gitOwner
 // The name of the project on GitHub
-let gitProjectName = "MyProject"
+let gitProjectName = "IntroductionToFunctionalProgramming"
 // The name of the GitHub repo subdirectory to publish slides to
 let gitSubDir = ""
 
@@ -22,12 +22,9 @@ open Fake.Git
 open System.IO
 open System.Diagnostics
 open Suave
-open Suave.Web
-open Suave.Http
 open Suave.Operators
 open Suave.Sockets
 open Suave.Sockets.Control
-open Suave.Sockets.AsyncSocket
 open Suave.WebSocket
 open Suave.Utils
 open Suave.Files
@@ -65,7 +62,7 @@ let generateFor (file:FileInfo) =
             try
                 FsReveal.GenerateFromFile(file.FullName, outDir, fsiEvaluator = fsiEvaluator)
             with
-            | exn when trials > 0 -> tryGenerate (trials - 1)
+            | _ when trials > 0 -> tryGenerate (trials - 1)
             | exn ->
                 traceImportant <| sprintf "Could not generate slides for: %s" file.FullName
                 traceImportant exn.Message
@@ -89,9 +86,9 @@ let handleWatcherEvents (events:FileChange seq) =
     refreshEvent.Trigger()
 
 let socketHandler (webSocket : WebSocket) =
-  fun cx -> socket {
+  fun _ -> socket {
     while true do
-      let! refreshed =
+      let! _ =
         Control.Async.AwaitEvent(refreshEvent.Publish)
         |> Suave.Sockets.SocketOp.ofAsync
       do! webSocket.send Text (ASCII.bytes "refreshed") true

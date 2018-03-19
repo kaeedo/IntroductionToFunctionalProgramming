@@ -179,6 +179,16 @@
 ' However, the moment you or someone else on the team makes a mistake, all that hard work is undone
 ' For example, making a database call directly from a Domain Model, instead of going through predefined services and other abstractions
 
+---
+
+<img src="images/PitOfSuccess.jpg" />
+
+' This time, success is at the bottom of the pit
+' That doesn't mean that success is bad, simply that gravity helps you get there
+' What that means in practice, is that the F# type system and compiler help you get there
+' And once your in that pit, it's much easier to stay successful, as trying to get out now takes more effort
+' It's much more difficult to make mistakes, or to ignore established patterns and abstractions, because the compiler enforces them
+
 ***
 
 ### Benefits of the F# type system
@@ -232,7 +242,7 @@
     type ContactUser = { Username: string; Email: string option; PhoneNumber: string option }
 
     let createUser username emailAddress phoneNumber =
-        // Logic to ensure either email address or phone is supplied
+        // Logic to assign either email address or phone or both
         // Error prone
 
         { Username = "kaiito"; Email = "kai.ito@zuehlke.com"; PhoneNumber = "089 555 1234" }
@@ -299,7 +309,40 @@
 
 ***
 
-### Function Currying
+### Function Currying and Partial Function Application
+* Creating new functions by not supplying all parameters
+* Point free programming
+* F# curries all functions be default
+* What does `x: int -> y: int -> int` mean
+
+---
+
+### Curried function
+    [lang=fsharp]
+    let add x y =
+        x + y
+
+<div class="fragment">
+
+    [lang=fsharp]
+    let add x =
+        fun y ->
+            x + y
+
+    let curriedAdd = add 3
+    printfn "Result is: %i" (curriedAdd 5)
+    // Result is: 8
+</div>
+
+' A curried function is a function created by only supplying a part of the parameters a function expects
+' This essentially "binds" the given values to those parameters
+
+---
+
+### Partial Function Application
+* Using curried functions
+* Creating anonymous curried functions
+
 
 ***
 
@@ -322,7 +365,7 @@
 <img src="images/RoP2.jpg" />
 
 ' We can model our function like a railway switch
-' We have our input, and we have a happy path, and an error path
+' We have our input, and we have a happy path, and a sad path
 ' The happy path can cause an error, but the error path can't go back to the happy path
 
 ---
@@ -350,6 +393,7 @@
 
 ### Demo
 
+' railwayOrientedDemo.fsx
 ' Railway oriented programming can do much more, for example running multiple tracks in parallel
 ' or using single track functions, or having dead end tracks.
 ' The standard library already includes several helper methods, but there also exists several open source libraries for working with RoP, one such library is called Chessie
