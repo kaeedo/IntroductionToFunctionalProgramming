@@ -329,20 +329,63 @@
         fun y ->
             x + y
 
-    let curriedAdd = add 3
-    printfn "Result is: %i" (curriedAdd 5)
-    // Result is: 8
+    let threeParams foo bar baz =
+        printfn "Values are: %O, %O, %O" foo bar baz
+
+    let threeParams foo =
+        fun bar ->
+            fun baz ->
+                printfn "Values are: %O, %O, %O" foo bar baz
 </div>
 
 ' A curried function is a function created by only supplying a part of the parameters a function expects
 ' This essentially "binds" the given values to those parameters
+' Works with any number of parameters
 
 ---
 
 ### Partial Function Application
 * Using curried functions
-* Creating anonymous curried functions
+* Only supply some of the parameters
 
+
+    [lang=fsharp]
+    let add x y =
+        x + y
+
+    let curriedAdd = add 3
+    printfn "Result is: %i" (curriedAdd 5)
+    // Result is: 8
+
+    let double = (*) 2
+
+    [1..10]
+    |> List.map double
+
+---
+
+### Point-free programming
+* What happens when you abuse currying and partial function application
+* Avoid explicitly specifying parameters
+* Use Higher-order functions everywhere
+
+
+    [lang=fsharp]
+    let sum list = List.fold (+) 0 list
+    let freeSum = List.fold (+) 0
+
+    let doubleAndIncrement x = x * 2 + 1
+    let freeDoubleAndIncrement = (*) 2 >> (+) 1
+
+' Both functions have same signature
+' The first explicitly defines a parameter
+' The second returns a function that requires a parameter
+
+---
+
+### Demo
+
+' functionCurryingDemo.fsx
 
 ***
 
@@ -394,6 +437,7 @@
 ### Demo
 
 ' railwayOrientedDemo.fsx
+' We partially apply the bind function
 ' Railway oriented programming can do much more, for example running multiple tracks in parallel
 ' or using single track functions, or having dead end tracks.
 ' The standard library already includes several helper methods, but there also exists several open source libraries for working with RoP, one such library is called Chessie

@@ -12,7 +12,7 @@ let trySendResponse id name =
     try
         Some (sprintf """{"id":%i, "name":"%s"}""" id name)
     with
-    | :? Exception ->
+    | _ ->
         None
 
 type Result<'TSuccess, 'TFailure> =
