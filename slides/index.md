@@ -8,7 +8,17 @@
 
 <br /><br /><br /><br />
 
-## Functional Programming with F#
+## A primer to the world of Functional Programming with F#
+
+Learn about the functional programming paradigm. Learn how to combine functions, define immutable data structures and write code in a functional way to achieve a robust and safe code base. This talk focuses on basic concepts used in functional programming, with code examples written in F#, a functional first language that runs on the .Net framework. No prior knowledge of F# or functional programming required. Just bring your curiosity.
+
+This talk will be held in English
+
+
+About me:
+Kai Ito (github.com/kaeedo)
+Full stack .Net developer since 2012
+Functional programmer since 2016
 
 <br /><br /><br />
 
@@ -371,8 +381,8 @@
 
 
     [lang=fsharp]
-    let sum list = List.fold (+) 0 list
-    let freeSum = List.fold (+) 0
+    let sum list = List.reduce (+) list
+    let freeSum = List.reduce (+)
 
     let doubleAndIncrement x = x * 2 + 1
     let freeDoubleAndIncrement = (*) 2 >> (+) 1
@@ -386,6 +396,9 @@
 ### Demo
 
 ' functionCurryingDemo.fsx
+' You use a free monad which allows you to build a monad from any functor
+' Dependency injection can be done via partial function application
+
 
 ***
 
