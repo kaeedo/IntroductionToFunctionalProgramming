@@ -1,5 +1,5 @@
 - title : Functional Programming with F#
-- description : Introduction to functional programming using F#
+- description : A primer to the world of Functional Programming with F#
 - author : Kai Ito
 - theme : night
 - transition : default
@@ -134,13 +134,13 @@ Functional programmer since 2016
 
     [lang=fsharp]
     type Shape =
-    | Rectangle of width : float * length : float
-    | Circle of radius : float
+    | Rectangle of width: float * length: float
+    | Circle of radius: float
     | Triangle of float * float * float
 
-    let rectangle = Rectangle (2.0, 5.0)
-    let circle = Circle 2.5
-    let triangle = Triangle (6.1, 2.0, 3.7)
+    let rectangle: Shape = Rectangle (2.0, 5.0)
+    let circle: Shape = Circle 2.5
+    let triangle: Shape = Triangle (6.1, 2.0, 3.7)
 
     let whichShape shape =
         match shape with
@@ -458,4 +458,48 @@ Functional programmer since 2016
 ***
 
 ### Monads
+
 * A monad is just a monoid in the category of endofunctors
+* Chainable wrapper around a data structure that performs an extra operation after each expression
+* Semicolon at end of statement performs extra action
+
+---
+
+### Monad in Detail
+* A constructor that wraps a value: *the monadic value M*
+* A bind function that accepts a function as its parameter
+  * Applies this function to the internally wrapped value *M*
+  * Returns the function’s output wrapped as a monad
+* A return function that simply unwraps the monadic value
+
+---
+
+### F# Computation Expression
+* NOT Monads
+* Can be used to express monads
+
+' Here is the async monad, or continuation monad
+' Computation expressions can also be used to represent iterators, LINQ queries, or generators to name a few examples
+
+
+    [lang=fsharp]
+    let result =
+        async {
+            let! (username: string) = getByIdAsync 1
+            let! (replies: string list) = getRepliesByUsernameAsync username
+
+            let count = replies |> List.length
+
+            return (replies, count)
+        } |> Async.RunSynchronously
+
+' The let bang calls the bind method on the builder, in this case the async builder
+' Regular let works normally
+
+---
+
+### Demo
+
+' Easier to understand with a demo
+' Lets create a computation expression from scratch
+' computationExpression.fsx
