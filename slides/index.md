@@ -10,16 +10,6 @@
 
 ## A primer to the world of Functional Programming with F#
 
-Learn about the functional programming paradigm. Learn how to combine functions, define immutable data structures and write code in a functional way to achieve a robust and safe code base. This talk focuses on basic concepts used in functional programming, with code examples written in F#, a functional first language that runs on the .Net framework. No prior knowledge of F# or functional programming required. Just bring your curiosity.
-
-This talk will be held in English
-
-
-About me:
-Kai Ito (github.com/kaeedo)
-Full stack .Net developer since 2012
-Functional programmer since 2016
-
 <br /><br /><br />
 
 * Kai Ito
