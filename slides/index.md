@@ -14,6 +14,8 @@
 
 * Kai Ito
 
+' Who here has any prior experience with F#/Functional programming
+
 ***
 
 ### What is F#
@@ -92,7 +94,7 @@
 ### Records
 
 * Simple aggregates of data
-* Can be struct or reference types (since 4.1)
+* Can be struct or reference types
 * Has structural equality
 
 <br />
@@ -197,6 +199,10 @@
 * Make illegal states unrepresentable
 * Use types to represent the domain
 * Types can also be used to encode business logic
+* Files and code must be in dependency order
+
+' File and code cannot use forward reference. What this means is that code can only reference values and functions written above it. This means the order of files are important.
+' This may seem really strange at first, but as you get used to this quirk, you quickly learn to appreciate this organization as it becomes incredibly easy to read large projects
 
 ---
 
@@ -234,7 +240,7 @@
 ---
 
 ### Making illegal state unrepresentable
-* Image business log where a User either needs an email address or phone number or both
+* Imagine business logic where a User either needs an email address or phone number or both
 * Required to have at least one of them
 
 
@@ -275,6 +281,36 @@
 ' Validation has been done elsewhere
 ' Goes along with pit of success
 
+
+---
+
+### Dependency Order
+
+<img src="images/FileOrder.jpg" />
+
+' Code in State.fs can't reference any code declared in any of the files below it.
+' This allows for architectural constructs, such as the Onion model, to be type checked by the compiler
+' Can't accidentally call a database method from the Domain model which is supposed to be pure
+' "Pit of Success" forced to do things the proper way
+
+---
+
+    [lang=fsharp]
+    type Foo =
+        | T1 of Bar
+
+    type Bar =
+        | T1 of Foo
+
+    // Compiler error: The type 'Bar' is not defined
+
+
+    type FirstType =
+        | T1 of SecondType
+
+    and SecondType =
+        | T1 of FirstType
+
 ***
 
 ### Function Composition
@@ -306,6 +342,8 @@
 
     printfn "The current year from composed function is: %i" yearFromComposed
     // The current year from composed function is: 2018
+
+' Before I get into a use case for function composition, I'd like to take a look at function currying first
 
 ***
 
@@ -361,7 +399,7 @@
 
     [1..10]
     |> List.map double
-
+    // [2; 4; 6; 8; 10; 12; 14; 16; 18; 20]
 ---
 
 ### Point-free programming
@@ -493,3 +531,18 @@
 ' Easier to understand with a demo
 ' Lets create a computation expression from scratch
 ' computationExpression.fsx
+
+***
+
+### Additional resources
+
+* http://fsharp.org/learn.html
+* https://fsharpforfunandprofit.com/
+* http://www.tryfsharp.org/Learn/getting-started (Requires Silverlight...)
+
+***
+
+### Thank you!
+
+* Questions?
+* Feedback?

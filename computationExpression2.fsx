@@ -33,12 +33,12 @@ match result with
 | Some r -> printfn "Result is: %f" r
 
 type MaybeBuilder() =
-    member this.Bind(value, fn) =
+    member this.Bind (value, fn) =
         match value with
         | None -> None
         | Some r -> fn r
 
-    member this.Return(value) =
+    member this.Return value =
         Some value
 
 let maybe = new MaybeBuilder()

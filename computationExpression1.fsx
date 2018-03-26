@@ -13,11 +13,11 @@ let printerWorkflow =
 type PrintBuilder() =
     let printer value = printfn "Printed value is: %A" value
 
-    member this.Bind(value, fn) =
+    member this.Bind (value, fn) =
         printer value
         fn value
 
-    member this.Return(value) =
+    member this.Return value =
         value
 
 
@@ -27,6 +27,7 @@ let betterPrinterWorkflow =
     printer {
         let! foo = 10
         let! bar = 20
+        let noLog = 123
         let! baz = foo + bar
 
         return baz
