@@ -1,14 +1,14 @@
 let printerFn value = printfn "Printed value is: %A" value
 
 let printerWorkflow =
-    let foo = 1
-    printerFn foo
-    let bar = 2
-    printerFn bar
-    let baz = foo + bar
-    printerFn baz
+    let decade = 10
+    printerFn decade
+    let age = 28
+    printerFn age
+    let ageInDecade = decade + age
+    printerFn ageInDecade
 
-    baz
+    ageInDecade
 
 type PrintBuilder() =
     let printer value = printfn "Printed value is: %A" value
@@ -25,10 +25,10 @@ let printer = new PrintBuilder()
 
 let betterPrinterWorkflow =
     printer {
-        let! foo = 10
-        let! bar = 20
-        let noLog = 123
-        let! baz = foo + bar
+        let! decade = 10
+        let! age = 20
+        let irrelevantNumber = 123
+        let! ageInDecade = decade + age
 
-        return baz
+        return ageInDecade
     }

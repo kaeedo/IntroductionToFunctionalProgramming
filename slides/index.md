@@ -13,8 +13,58 @@
 <br /><br /><br />
 
 * Kai Ito
+* https://www.xing.com/profile/Kai_Ito/
+* https://github.com/kaeedo/IntroductionToFunctionalProgramming
 
 ' Who here has any prior experience with F#/Functional programming
+
+***
+
+### What is Functional Programming
+
+* Function Composition over Inheritance
+* Expressions over Statements
+* Immutability
+* Use of higher-order functions
+* Use of pure functions
+
+---
+
+### Benefits of the Functional paradigm
+
+* Higher order functions
+  * High level abstractions
+  * Code reusability
+* Pure Functions
+  * Easier to reason about
+  * Easier to test
+  * Easier to debug
+* Immutability
+  * Less bugs
+  * No invalid state
+  * Thread safety
+* "If it compiles, it works"
+* "Pit of Success"
+
+---
+
+<img src="images/MountainOfSuccess.jpg" />
+
+' The ball is your project and its architecture
+' The top of the mountain is a successful
+' Takes a lot of hard work and discipline
+' However, the moment you or someone else on the team makes a mistake, all that hard work is undone
+' For example, making a database call directly from a Domain Model, instead of going through predefined services and other abstractions
+
+---
+
+<img src="images/PitOfSuccess.jpg" />
+
+' This time, success is at the bottom of the pit
+' That doesn't mean that success is bad, simply that gravity helps you get there
+' What that means in practice, is that the F# type system and compiler help you get there
+' And once your in that pit, it's much easier to stay successful, as trying to get out now takes more effort
+' It's much more difficult to make mistakes, or to ignore established patterns and abstractions, because the compiler enforces them
 
 ***
 
@@ -145,54 +195,6 @@
             printfn "Circle with radius %f" radius
         | Triangle (side1, side2, side3) ->
             printfn "Triangle with sides %f %f %f" side1 side2 side3
-
-***
-
-### What is Functional Programming
-
-* Function Composition over Inheritance
-* Expressions over Statements
-* Immutability
-* Use of higher-order functions
-* Use of pure functions
-
----
-
-### Benefits of the Functional paradigm
-
-* Higher order functions
-  * High level abstractions
-  * Code reusability
-* Pure Functions
-  * Easier to reason about
-  * Easier to test
-  * Easier to debug
-* Immutability
-  * Less bugs
-  * No invalid state
-  * Thread safety
-* "If it compiles, it works"
-* "Pit of Success"
-
----
-
-<img src="images/MountainOfSuccess.jpg" />
-
-' The ball is your project and its architecture
-' The top of the mountain is a successful
-' Takes a lot of hard work and discipline
-' However, the moment you or someone else on the team makes a mistake, all that hard work is undone
-' For example, making a database call directly from a Domain Model, instead of going through predefined services and other abstractions
-
----
-
-<img src="images/PitOfSuccess.jpg" />
-
-' This time, success is at the bottom of the pit
-' That doesn't mean that success is bad, simply that gravity helps you get there
-' What that means in practice, is that the F# type system and compiler help you get there
-' And once your in that pit, it's much easier to stay successful, as trying to get out now takes more effort
-' It's much more difficult to make mistakes, or to ignore established patterns and abstractions, because the compiler enforces them
 
 ***
 
@@ -541,6 +543,7 @@
 * http://fsharp.org/learn.html
 * https://fsharpforfunandprofit.com/
 * http://www.tryfsharp.org/Learn/getting-started (Requires Silverlight...)
+* https://kaeedo.github.com/IntroductionToFunctionalProgramming
 
 ***
 
