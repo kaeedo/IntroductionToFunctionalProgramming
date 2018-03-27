@@ -89,6 +89,9 @@
     |> List.map (fun i -> i ** 2.0)
     |> List.iter printer
 
+    let (|>) value fn =
+        fn value
+
 ---
 
 ### Records
@@ -112,8 +115,8 @@
 
     let olderKai = { kai with Age = kai.Age + 1 }
 
-    printfn "%i" <| olderKai.Age // 28
-    printfn "%i" <| kai.Age // 27
+    printfn "%i" (olderKai.Age) // 28
+    printfn "%i" (kai.Age) // 27
 
 ---
 
@@ -160,7 +163,7 @@
 * Higher order functions
   * High level abstractions
   * Code reusability
-* One directional data flow
+* Pure Functions
   * Easier to reason about
   * Easier to test
   * Easier to debug
@@ -213,8 +216,8 @@
     | Some of 'a
     | None
 
-    let validInt = Some 1
-    let invalidInt = None
+    let validInt: int option = Some 1
+    let invalidInt: int option = None
 
     let numbers = [ 1; 2; 3; 4; ]
     let foundNumber = numbers |> List.tryFind (fun x -> x = 4)
@@ -268,12 +271,12 @@
     let phoneNumber = PhoneNumber "089 555 1234"
     let emailAndPhone = EmailAndPhone ("kai.ito@zuehlke.com", "089 555 1234")
 
-    let user1 = { Username = "kaiito"; Contact = email }
-    let user2 = { Username = "kaiito"; Contact = phoneNumber }
-    let user3 = { Username = "kaiito"; Contact = emailAndPhone }
+    let user1 = { Username = "kaiito1"; Contact = email }
+    let user2 = { Username = "kaiito2"; Contact = phoneNumber }
+    let user3 = { Username = "kaiito3"; Contact = emailAndPhone }
 
-    let user4 = { Username = "kaiito"; Contact = null } // Compiler Error
-    let user5 = { Username = "kaiito"; Contact = "someString" } // Compiler Error
+    let user4 = { Username = "kaiito4"; Contact = null } // Compiler Error
+    let user5 = { Username = "kaiito5"; Contact = "someString" } // Compiler Error
 
 ' When deconstructing the Contact information, automatically know what kind of contact information it is
 
@@ -349,8 +352,7 @@
 
 ### Function Currying and Partial Function Application
 * Creating new functions by not supplying all parameters
-* Point free programming
-* F# curries all functions be default
+* F# curries all functions by default
 * What does `x: int -> y: int -> int` mean
 
 ---

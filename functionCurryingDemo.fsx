@@ -14,6 +14,7 @@ let jsonSerializer shouldMinify data =
     else
         sprintf "The unminified data is: %s" (data.ToString())
 
+// Partially apply jsonSerializer depending on environment
 let formatter =
     match environment with
     | "production" -> jsonSerializer true
