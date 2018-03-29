@@ -131,10 +131,10 @@
 <div class="tip" id="fs83">val user3 : SafeContactUser<br /><br />Full name: index.user3</div>
 <div class="tip" id="fs84">val user4 : SafeContactUser<br /><br />Full name: index.user4</div>
 <div class="tip" id="fs85">val user5 : SafeContactUser<br /><br />Full name: index.user5</div>
-<div class="tip" id="fs86">type Foo = | T1 of obj<br /><br />Full name: index.Foo</div>
-<div class="tip" id="fs87">union case Foo.T1: obj -&gt; Foo</div>
-<div class="tip" id="fs88">type Bar = | T1 of Foo<br /><br />Full name: index.Bar</div>
-<div class="tip" id="fs89">union case Bar.T1: Foo -&gt; Bar</div>
+<div class="tip" id="fs86">type Customer = | T1 of obj<br /><br />Full name: index.Customer</div>
+<div class="tip" id="fs87">union case Customer.T1: obj -&gt; Customer</div>
+<div class="tip" id="fs88">type CustomerObserver = | T1 of Customer<br /><br />Full name: index.CustomerObserver</div>
+<div class="tip" id="fs89">union case CustomerObserver.T1: Customer -&gt; CustomerObserver</div>
 <div class="tip" id="fs90">type FirstType = | T1 of SecondType<br /><br />Full name: index.FirstType</div>
 <div class="tip" id="fs91">union case FirstType.T1: SecondType -&gt; FirstType</div>
 <div class="tip" id="fs92">type SecondType = | T1 of FirstType<br /><br />Full name: index.SecondType</div>
@@ -153,10 +153,10 @@
 <div class="tip" id="fs105">val yearFromComposed : int<br /><br />Full name: index.yearFromComposed</div>
 <div class="tip" id="fs106">val add : x:int -&gt; y:int -&gt; int<br /><br />Full name: index.add</div>
 <div class="tip" id="fs107">val y : int</div>
-<div class="tip" id="fs108">val threeParams : foo:&#39;a -&gt; bar:&#39;b -&gt; baz:&#39;c -&gt; unit<br /><br />Full name: index.threeParams</div>
-<div class="tip" id="fs109">val foo : &#39;a</div>
-<div class="tip" id="fs110">val bar : &#39;b</div>
-<div class="tip" id="fs111">val baz : &#39;c</div>
+<div class="tip" id="fs108">val threeParams : firstName:&#39;a -&gt; middleName:&#39;b -&gt; lastName:&#39;c -&gt; unit<br /><br />Full name: index.threeParams</div>
+<div class="tip" id="fs109">val firstName : &#39;a</div>
+<div class="tip" id="fs110">val middleName : &#39;b</div>
+<div class="tip" id="fs111">val lastName : &#39;c</div>
 <div class="tip" id="fs112">val curriedAdd : (int -&gt; int)<br /><br />Full name: index.curriedAdd</div>
 <div class="tip" id="fs113">Multiple items<br />val double : (int -&gt; int)<br /><br />Full name: index.double<br /><br />--------------------<br />type double = System.Double<br /><br />Full name: Microsoft.FSharp.Core.double</div>
 <div class="tip" id="fs114">val sum : list:int list -&gt; int<br /><br />Full name: index.sum</div>
@@ -183,10 +183,74 @@
 <br /><br /><br />
 <ul>
 <li>Kai Ito</li>
+<li><a href="https://www.xing.com/profile/Kai_Ito/">https://www.xing.com/profile/Kai_Ito/</a></li>
+<li><a href="https://github.com/kaeedo/IntroductionToFunctionalProgramming">https://github.com/kaeedo/IntroductionToFunctionalProgramming</a></li>
 </ul>
 <aside class="notes">
 Who here has any prior experience with F#/Functional programming<br/>
 </aside>
+</section>
+<section >
+<section >
+<h3>What is Functional Programming</h3>
+<ul>
+<li>Function Composition over Inheritance</li>
+<li>Expressions over Statements</li>
+<li>Immutability</li>
+<li>Use of higher-order functions</li>
+<li>Use of pure functions</li>
+</ul>
+</section>
+<section >
+<h3>Benefits of the Functional paradigm</h3>
+<ul>
+<li>
+Higher order functions
+<ul>
+<li>High level abstractions</li>
+<li>Code reusability</li>
+</ul>
+</li>
+<li>
+Pure Functions
+<ul>
+<li>Easier to reason about</li>
+<li>Easier to test</li>
+<li>Easier to debug</li>
+</ul>
+</li>
+<li>
+Immutability
+<ul>
+<li>Less bugs</li>
+<li>No invalid state</li>
+<li>Thread safety</li>
+</ul>
+</li>
+<li>"If it compiles, it works"</li>
+<li>"Pit of Success"</li>
+</ul>
+</section>
+<section >
+<img src="images/MountainOfSuccess.jpg" />
+<aside class="notes">
+The ball is your project and its architecture<br/>
+The top of the mountain is a successful<br/>
+Takes a lot of hard work and discipline<br/>
+However, the moment you or someone else on the team makes a mistake, all that hard work is undone<br/>
+For example, making a database call directly from a Domain Model, instead of going through predefined services and other abstractions<br/>
+</aside>
+</section>
+<section >
+<img src="images/PitOfSuccess.jpg" />
+<aside class="notes">
+This time, success is at the bottom of the pit<br/>
+That doesn't mean that success is bad, simply that gravity helps you get there<br/>
+What that means in practice, is that the F# type system and compiler help you get there<br/>
+And once your in that pit, it's much easier to stay successful, as trying to get out now takes more effort<br/>
+It's much more difficult to make mistakes, or to ignore established patterns and abstractions, because the compiler enforces them<br/>
+</aside>
+</section>
 </section>
 <section >
 <section >
@@ -225,9 +289,9 @@ Who here has any prior experience with F#/Functional programming<br/>
 
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="i">listOfInts</span> <span class="o">=</span> [ <span class="n">1</span>; <span class="n">2</span>; <span class="n">3</span> ]
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="i">listOfStrings</span> <span class="o">=</span>
-    [ <span class="s">&quot;foo&quot;</span>
-      <span class="s">&quot;bar&quot;</span>
-      <span class="s">&quot;baz&quot;</span> ]
+    [ <span class="s">&quot;www.zuehlke.com&quot;</span>
+      <span class="s">&quot;www.google.com&quot;</span>
+      <span class="s">&quot;www.microsoft.com&quot;</span> ]
 </code></pre></td>
 </tr>
 </table>
@@ -385,68 +449,6 @@ let declarations are called values instead of variables<br/>
 </code></pre></td>
 </tr>
 </table>
-</section>
-</section>
-<section >
-<section >
-<h3>What is Functional Programming</h3>
-<ul>
-<li>Function Composition over Inheritance</li>
-<li>Expressions over Statements</li>
-<li>Immutability</li>
-<li>Use of higher-order functions</li>
-<li>Use of pure functions</li>
-</ul>
-</section>
-<section >
-<h3>Benefits of the Functional paradigm</h3>
-<ul>
-<li>
-Higher order functions
-<ul>
-<li>High level abstractions</li>
-<li>Code reusability</li>
-</ul>
-</li>
-<li>
-Pure Functions
-<ul>
-<li>Easier to reason about</li>
-<li>Easier to test</li>
-<li>Easier to debug</li>
-</ul>
-</li>
-<li>
-Immutability
-<ul>
-<li>Less bugs</li>
-<li>No invalid state</li>
-<li>Thread safety</li>
-</ul>
-</li>
-<li>"If it compiles, it works"</li>
-<li>"Pit of Success"</li>
-</ul>
-</section>
-<section >
-<img src="images/MountainOfSuccess.jpg" />
-<aside class="notes">
-The ball is your project and its architecture<br/>
-The top of the mountain is a successful<br/>
-Takes a lot of hard work and discipline<br/>
-However, the moment you or someone else on the team makes a mistake, all that hard work is undone<br/>
-For example, making a database call directly from a Domain Model, instead of going through predefined services and other abstractions<br/>
-</aside>
-</section>
-<section >
-<img src="images/PitOfSuccess.jpg" />
-<aside class="notes">
-This time, success is at the bottom of the pit<br/>
-That doesn't mean that success is bad, simply that gravity helps you get there<br/>
-What that means in practice, is that the F# type system and compiler help you get there<br/>
-And once your in that pit, it's much easier to stay successful, as trying to get out now takes more effort<br/>
-It's much more difficult to make mistakes, or to ignore established patterns and abstractions, because the compiler enforces them<br/>
-</aside>
 </section>
 </section>
 <section >
@@ -620,13 +622,13 @@ Can't accidentally call a database method from the Domain model which is suppose
 <span class="l">13: </span>
 <span class="l">14: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs86', 184)" onmouseover="showTip(event, 'fs86', 184)" class="t">Foo</span> <span class="o">=</span>
-    | <span onmouseout="hideTip(event, 'fs87', 185)" onmouseover="showTip(event, 'fs87', 185)" class="p">T1</span> <span class="k">of</span> <span class="i">Bar</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs86', 184)" onmouseover="showTip(event, 'fs86', 184)" class="t">Customer</span> <span class="o">=</span>
+    | <span onmouseout="hideTip(event, 'fs87', 185)" onmouseover="showTip(event, 'fs87', 185)" class="p">T1</span> <span class="k">of</span> <span class="i">CustomerObserver</span>
 
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs88', 186)" onmouseover="showTip(event, 'fs88', 186)" class="t">Bar</span> <span class="o">=</span>
-    | <span onmouseout="hideTip(event, 'fs89', 187)" onmouseover="showTip(event, 'fs89', 187)" class="p">T1</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs86', 188)" onmouseover="showTip(event, 'fs86', 188)" class="t">Foo</span>
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs88', 186)" onmouseover="showTip(event, 'fs88', 186)" class="t">CustomerObserver</span> <span class="o">=</span>
+    | <span onmouseout="hideTip(event, 'fs89', 187)" onmouseover="showTip(event, 'fs89', 187)" class="p">T1</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs86', 188)" onmouseover="showTip(event, 'fs86', 188)" class="t">Customer</span>
 
-<span class="c">// Compiler error: The type &#39;Bar&#39; is not defined</span>
+<span class="c">// Compiler error: The type &#39;Customer&#39; is not defined</span>
 
 
 <span class="k">type</span> <span onmouseout="hideTip(event, 'fs90', 189)" onmouseover="showTip(event, 'fs90', 189)" class="t">FirstType</span> <span class="o">=</span>
@@ -727,13 +729,13 @@ Before I get into a use case for function composition, I'd like to take a look a
     <span class="k">fun</span> <span onmouseout="hideTip(event, 'fs107', 233)" onmouseover="showTip(event, 'fs107', 233)" class="i">y</span> <span class="k">-&gt;</span>
         <span onmouseout="hideTip(event, 'fs58', 234)" onmouseover="showTip(event, 'fs58', 234)" class="i">x</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs107', 235)" onmouseover="showTip(event, 'fs107', 235)" class="i">y</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs108', 236)" onmouseover="showTip(event, 'fs108', 236)" class="f">threeParams</span> <span onmouseout="hideTip(event, 'fs109', 237)" onmouseover="showTip(event, 'fs109', 237)" class="i">foo</span> <span onmouseout="hideTip(event, 'fs110', 238)" onmouseover="showTip(event, 'fs110', 238)" class="i">bar</span> <span onmouseout="hideTip(event, 'fs111', 239)" onmouseover="showTip(event, 'fs111', 239)" class="i">baz</span> <span class="o">=</span>
-    <span onmouseout="hideTip(event, 'fs16', 240)" onmouseover="showTip(event, 'fs16', 240)" class="f">printfn</span> <span class="s">&quot;Values are: </span><span class="pf">%O</span><span class="s">, </span><span class="pf">%O</span><span class="s">, </span><span class="pf">%O</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs109', 241)" onmouseover="showTip(event, 'fs109', 241)" class="i">foo</span> <span onmouseout="hideTip(event, 'fs110', 242)" onmouseover="showTip(event, 'fs110', 242)" class="i">bar</span> <span onmouseout="hideTip(event, 'fs111', 243)" onmouseover="showTip(event, 'fs111', 243)" class="i">baz</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs108', 236)" onmouseover="showTip(event, 'fs108', 236)" class="f">threeParams</span> <span onmouseout="hideTip(event, 'fs109', 237)" onmouseover="showTip(event, 'fs109', 237)" class="i">firstName</span> <span onmouseout="hideTip(event, 'fs110', 238)" onmouseover="showTip(event, 'fs110', 238)" class="i">middleName</span> <span onmouseout="hideTip(event, 'fs111', 239)" onmouseover="showTip(event, 'fs111', 239)" class="i">lastName</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs16', 240)" onmouseover="showTip(event, 'fs16', 240)" class="f">printfn</span> <span class="s">&quot;Full name is: </span><span class="pf">%O</span><span class="s">, </span><span class="pf">%O</span><span class="s">, </span><span class="pf">%O</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs109', 241)" onmouseover="showTip(event, 'fs109', 241)" class="i">firstName</span> <span onmouseout="hideTip(event, 'fs110', 242)" onmouseover="showTip(event, 'fs110', 242)" class="i">middleName</span> <span onmouseout="hideTip(event, 'fs111', 243)" onmouseover="showTip(event, 'fs111', 243)" class="i">lastName</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs108', 244)" onmouseover="showTip(event, 'fs108', 244)" class="f">threeParams</span> <span onmouseout="hideTip(event, 'fs109', 245)" onmouseover="showTip(event, 'fs109', 245)" class="i">foo</span> <span class="o">=</span>
-    <span class="k">fun</span> <span onmouseout="hideTip(event, 'fs110', 246)" onmouseover="showTip(event, 'fs110', 246)" class="i">bar</span> <span class="k">-&gt;</span>
-        <span class="k">fun</span> <span onmouseout="hideTip(event, 'fs111', 247)" onmouseover="showTip(event, 'fs111', 247)" class="i">baz</span> <span class="k">-&gt;</span>
-            <span onmouseout="hideTip(event, 'fs16', 248)" onmouseover="showTip(event, 'fs16', 248)" class="f">printfn</span> <span class="s">&quot;Values are: </span><span class="pf">%O</span><span class="s">, </span><span class="pf">%O</span><span class="s">, </span><span class="pf">%O</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs109', 249)" onmouseover="showTip(event, 'fs109', 249)" class="i">foo</span> <span onmouseout="hideTip(event, 'fs110', 250)" onmouseover="showTip(event, 'fs110', 250)" class="i">bar</span> <span onmouseout="hideTip(event, 'fs111', 251)" onmouseover="showTip(event, 'fs111', 251)" class="i">baz</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs108', 244)" onmouseover="showTip(event, 'fs108', 244)" class="f">threeParams</span> <span onmouseout="hideTip(event, 'fs109', 245)" onmouseover="showTip(event, 'fs109', 245)" class="i">firstName</span> <span class="o">=</span>
+    <span class="k">fun</span> <span onmouseout="hideTip(event, 'fs110', 246)" onmouseover="showTip(event, 'fs110', 246)" class="i">middleName</span> <span class="k">-&gt;</span>
+        <span class="k">fun</span> <span onmouseout="hideTip(event, 'fs111', 247)" onmouseover="showTip(event, 'fs111', 247)" class="i">lastName</span> <span class="k">-&gt;</span>
+            <span onmouseout="hideTip(event, 'fs16', 248)" onmouseover="showTip(event, 'fs16', 248)" class="f">printfn</span> <span class="s">&quot;Values are: </span><span class="pf">%O</span><span class="s">, </span><span class="pf">%O</span><span class="s">, </span><span class="pf">%O</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs109', 249)" onmouseover="showTip(event, 'fs109', 249)" class="i">firstName</span> <span onmouseout="hideTip(event, 'fs110', 250)" onmouseover="showTip(event, 'fs110', 250)" class="i">middleName</span> <span onmouseout="hideTip(event, 'fs111', 251)" onmouseover="showTip(event, 'fs111', 251)" class="i">lastName</span>
 </code></pre></td>
 </tr>
 </table>
@@ -825,6 +827,47 @@ Dependency injection can be done via partial function application<br/>
 </ul>
 <aside class="notes">
 Not just exceptions. Any errors, for example validation messages as well<br/>
+</aside>
+</section>
+<section >
+<h3>Problems with the Imperative approach</h3>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">public</span> <span class="k">string</span> UpdateAndSend(<span class="k">string</span> input)
+{
+    <span class="k">if</span> (<span class="k">string</span>.IsNullOrWhitespace(input))
+        <span class="k">return</span> <span class="s">"empty input"</span>; <span class="c">// Or should we throw an Exception?</span>
+
+    <span class="k">try</span> {
+        <span class="k">var</span> updatedUser <span class="o">=</span> UpdateUserInDatabase(input);
+        <span class="k">return</span> ConvertToJson(updatedUser);
+    }
+    <span class="k">catch</span> (DatabaseException e) {
+        <span class="k">return</span> <span class="s">"Problem updating user in DB"</span>; <span class="c">// Or should we rethrow?</span>
+    }
+
+    <span class="k">return</span> <span class="s">"Failed to update and send"</span>; <span class="c">// Or should we throw an Exception?</span>
+}
+</code></pre></td></tr></table>
+<aside class="notes">
+There's no unifying way to handle errors<br/>
+Sometimes it uses try catch, other times simple conditional statements<br/>
+Should we throw exceptions, or should we return different failure messages<br/>
+Forces caller to handle each failure case individually<br/>
 </aside>
 </section>
 <section >
@@ -950,6 +993,7 @@ computationExpression.fsx<br/>
 <li><a href="http://fsharp.org/learn.html">http://fsharp.org/learn.html</a></li>
 <li><a href="https://fsharpforfunandprofit.com/">https://fsharpforfunandprofit.com/</a></li>
 <li><a href="http://www.tryfsharp.org/Learn/getting-started">http://www.tryfsharp.org/Learn/getting-started</a> (Requires Silverlight...)</li>
+<li><a href="https://kaeedo.github.com/IntroductionToFunctionalProgramming">https://kaeedo.github.com/IntroductionToFunctionalProgramming</a></li>
 </ul>
 </section>
 <section >
