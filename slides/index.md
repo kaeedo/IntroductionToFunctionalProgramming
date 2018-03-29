@@ -95,9 +95,9 @@
 
     let listOfInts = [ 1; 2; 3 ]
     let listOfStrings =
-        [ "foo"
-          "bar"
-          "baz" ]
+        [ "www.zuehlke.com"
+          "www.google.com"
+          "www.microsoft.com" ]
 
 ' let declarations are called values instead of variables
 
@@ -301,13 +301,13 @@
 ---
 
     [lang=fsharp]
-    type Foo =
-        | T1 of Bar
+    type Customer =
+        | T1 of CustomerObserver
 
-    type Bar =
-        | T1 of Foo
+    type CustomerObserver =
+        | T1 of Customer
 
-    // Compiler error: The type 'Bar' is not defined
+    // Compiler error: The type 'Customer' is not defined
 
 
     type FirstType =
@@ -371,13 +371,13 @@
         fun y ->
             x + y
 
-    let threeParams foo bar baz =
-        printfn "Values are: %O, %O, %O" foo bar baz
+    let threeParams firstName middleName lastName =
+        printfn "Full name is: %O, %O, %O" firstName middleName lastName
 
-    let threeParams foo =
-        fun bar ->
-            fun baz ->
-                printfn "Values are: %O, %O, %O" foo bar baz
+    let threeParams firstName =
+        fun middleName ->
+            fun lastName ->
+                printfn "Values are: %O, %O, %O" firstName middleName lastName
 </div>
 
 ' A curried function is a function created by only supplying a part of the parameters a function expects
@@ -440,6 +440,32 @@
 * Treat errors as first class citizens
 
 ' Not just exceptions. Any errors, for example validation messages as well
+
+---
+
+### Problems with the Imperative approach
+
+    [lang=csharp]
+    public string UpdateAndSend(string input)
+    {
+        if (string.IsNullOrWhitespace(input))
+            return "empty input"; // Or should we throw an Exception?
+
+        try {
+            var updatedUser = UpdateUserInDatabase(input);
+            return ConvertToJson(updatedUser);
+        }
+        catch (DatabaseException e) {
+            return "Problem updating user in DB"; // Or should we rethrow?
+        }
+
+        return "Failed to update and send"; // Or should we throw an Exception?
+    }
+
+' There's no unifying way to handle errors
+' Sometimes it uses try catch, other times simple conditional statements
+' Should we throw exceptions, or should we return different failure messages
+' Forces caller to handle each failure case individually
 
 ---
 
