@@ -51,7 +51,7 @@
 <img src="images/MountainOfSuccess.jpg" />
 
 ' The ball is your project and its architecture
-' The top of the mountain is a successful
+' The top of the mountain is a successful project
 ' Takes a lot of hard work and discipline
 ' However, the moment you or someone else on the team makes a mistake, all that hard work is undone
 ' For example, making a database call directly from a Domain Model, instead of going through predefined services and other abstractions
@@ -377,7 +377,7 @@
     let threeParams firstName =
         fun middleName ->
             fun lastName ->
-                printfn "Values are: %O, %O, %O" firstName middleName lastName
+                printfn "Full name is: %O, %O, %O" firstName middleName lastName
 </div>
 
 ' A curried function is a function created by only supplying a part of the parameters a function expects

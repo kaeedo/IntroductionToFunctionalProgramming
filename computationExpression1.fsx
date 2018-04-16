@@ -11,7 +11,7 @@ let printerWorkflow =
     ageInDecade
 
 type PrintBuilder() =
-    let printer value = printfn "Printed value is: %A" value
+    let printer value = printfn "Printed value in computation expression is: %A" value
 
     member this.Bind (value, fn) =
         printer value
@@ -26,7 +26,7 @@ let printer = new PrintBuilder()
 let betterPrinterWorkflow =
     printer {
         let! decade = 10
-        let! age = 20
+        let! age = 28
         let irrelevantNumber = 123
         let! ageInDecade = decade + age
 
