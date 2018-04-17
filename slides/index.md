@@ -298,24 +298,6 @@
 ' Can't accidentally call a database method from the Domain model which is supposed to be pure
 ' "Pit of Success" forced to do things the proper way
 
----
-
-    [lang=fsharp]
-    type Customer =
-        | T1 of CustomerObserver
-
-    type CustomerObserver =
-        | T1 of Customer
-
-    // Compiler error: The type 'Customer' is not defined
-
-
-    type FirstType =
-        | T1 of SecondType
-
-    and SecondType =
-        | T1 of FirstType
-
 ***
 
 ### Function Composition
@@ -456,10 +438,9 @@
             return ConvertToJson(updatedUser);
         }
         catch (DatabaseException e) {
+            logger.log(e.Message);
             return "Problem updating user in DB"; // Or should we rethrow?
         }
-
-        return "Failed to update and send"; // Or should we throw an Exception?
     }
 
 ' There's no unifying way to handle errors

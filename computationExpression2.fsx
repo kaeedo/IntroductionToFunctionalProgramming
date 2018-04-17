@@ -34,6 +34,11 @@ match result with
 | None -> printfn "Query param is malformed"
 | Some r -> printfn "Query parameter value is: %s" r
 
+
+
+
+
+
 type MaybeBuilder() =
     member this.Bind (value, fn) =
         match value with

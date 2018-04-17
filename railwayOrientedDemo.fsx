@@ -2,11 +2,11 @@ open System
 
 type User = { Id: int; Name: string }
 
-let updateNameInDb id name =
+let updateNameInDb id newName =
     if id = 0 then
         None
     else
-        Some { Id = id; Name = name }
+        Some { Id = id; Name = newName }
 
 let trySendResponse id name =
     try
@@ -32,7 +32,7 @@ let update input =
     | Some u -> Success u
     | None -> Failure "User with given ID not found"
 
-let send input =
+let send (input: User) =
     let id = input.Id
     let name = input.Name
 
