@@ -13,7 +13,7 @@
 <br /><br /><br />
 
 * Kai Ito
-* https://www.xing.com/profile/Kai_Ito/
+* https://hashset.dev/about
 * https://github.com/kaeedo/IntroductionToFunctionalProgramming
 
 ' Who here has any prior experience with F#/Functional programming
@@ -22,27 +22,26 @@
 
 ### What is Functional Programming
 
+* Focus on data flow
 * Function Composition over Inheritance
 * Expressions over Statements
-* Immutability
-* Use of higher-order functions
-* Use of pure functions
+
+' Focus on data flow instead of individual instructions. This gives a greater insight into what elements depend on what data, and in turn allows for easier refactoring in the future. See "What's Functional Programming All About?" by Li Haoyi
 
 ---
 
-### Benefits of the Functional paradigm
+### Common traits of the Functional paradigm
 
 * Higher order functions
   * High level abstractions
   * Code reusability
 * Pure Functions
   * Easier to reason about
-  * Easier to test
-  * Easier to debug
+  * Idempotency
 * Immutability
-  * Less bugs
-  * No invalid state
+  * Predictability
   * Thread safety
+  * Less bugs
 * "If it compiles, it works"
 * "Pit of Success"
 
@@ -138,6 +137,7 @@
     |> List.filter (fun i -> i % 2.0 = 0.0)
     |> List.map (fun i -> i ** 2.0)
     |> List.iter printer
+    // |> List.iter (fun i -> printer i)
 
     let (|>) value fn =
         fn value
@@ -158,8 +158,8 @@
           LastName: string
           Age: int }
 
-    let kai = { FirstName = "Kai"; LastName = "Ito"; Age = 27 }
-    let cloneOfKai = { FirstName = "Kai"; LastName = "Ito"; Age = 27 }
+    let kai = { FirstName = "Kai"; LastName = "Ito"; Age = 29 }
+    let cloneOfKai = { FirstName = "Kai"; LastName = "Ito"; Age = 29 }
 
     printfn "%b" (kai = cloneOfKai) // true
 
@@ -218,23 +218,23 @@
     | Some of 'a
     | None
 
-    let validInt: int option = Some 1
-    let invalidInt: int option = None
+    let validString: string option = Some "text"
+    let invalidString: string option = None
 
-    let numbers = [ 1; 2; 3; 4; ]
-    let foundNumber = numbers |> List.tryFind (fun x -> x = 4)
-    let missingNumber = numbers |> List.tryFind (fun x -> x = 50)
+    let words = [ "hello"; "world"; "from"; "home"; ]
+    let foundWord = words |> List.tryFind (fun x -> x = "world")
+    let missingWord = words |> List.tryFind (fun x -> x = "outside")
 
-    printfn "The number is: %i" foundNumber
-    // Compile Error: Type mismatch: Expecting "int" but got "int option"
+    printfn "The word is: %s" foundWord
+    // Compile Error: Type mismatch: Expecting "string" but got "string option"
 
-    let printInt input =
+    let printString input =
         match input with
-        | Some i -> printfn "The number is: %i" i
-        | None -> printfn "Didn't find number"
+        | Some s -> printfn "The word is: %s" s
+        | None -> printfn "Didn't find word"
 
-    printInt foundNumber // The number is: 4
-    printInt missingNumber // Didn't find number
+    printString foundWord // The word is: world
+    printString missingWord // Didn't find word
 
 ' This is how a lack of value is represented
 ' Many standard library and 3rd party libraries use the Option type as a return value
@@ -315,20 +315,20 @@
 ---
 
     [lang=fsharp]
-    let parseDateTime (dateTime: string) = System.DateTime.Parse(dateTime)
+    let parseDateTime (dateTime: string) = DateTime.Parse(dateTime)
     let getYear (date: System.DateTime) = date.Year
 
-    let date = parseDateTime "13-03-2018 12:00am"
+    let date = parseDateTime "26-04-2020 12:00am"
     let currentYear: int = getYear date
 
     printfn "The current year is: %i" currentYear
-    // The current year is: 2018
+    // The current year is: 2020
 
     let composedGetYear: string -> int = parseDateTime >> getYear
-    let yearFromComposed: int = composedGetYear "13-03-2018 12:00am"
+    let yearFromComposed: int = composedGetYear "26-04-2020 12:00am"
 
     printfn "The current year from composed function is: %i" yearFromComposed
-    // The current year from composed function is: 2018
+    // The current year from composed function is: 2020
 
 ' Before I get into a use case for function composition, I'd like to take a look at function currying first
 
@@ -513,6 +513,17 @@
 
 ---
 
+### JavaScript Promise
+
+    [lang=javascript]
+    const myPromise =
+        (new Promise(() => getDataFromBackend())))
+        .then(response => callThirdPartyApi(response.username))
+        .then(response => updateHtml(response.data))
+        .catch(error => console.log(error));
+
+---
+
 ### F# Computation Expression
 * NOT Monads
 * Can be used to express monads
@@ -551,6 +562,7 @@
 * https://fsharpforfunandprofit.com/
 * http://www.tryfsharp.org/Learn/getting-started (Requires Silverlight...)
 * https://kaeedo.github.com/IntroductionToFunctionalProgramming
+* https://www.lihaoyi.com/post/WhatsFunctionalProgrammingAllAbout.html
 
 ***
 

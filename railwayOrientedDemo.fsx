@@ -1,29 +1,28 @@
 open System
 
-type User = { Id: int; Name: string }
+type User =
+    { Id: int
+      Name: string }
 
 let updateNameInDb id newName =
-    if id = 0 then
+    if id < 0 then
         None
     else
-        Some { Id = id; Name = newName }
+        Some
+            { Id = id
+              Name = newName }
 
 let trySendResponse id name =
     try
-        Some (sprintf """{"id":%i, "name":"%s"}""" id name)
-    with
-    | _ ->
-        None
+        Some(sprintf """{"id":%i, "name":"%s"}""" id name)
+    with _ -> None
 
 type Result<'TSuccess, 'TFailure> =
-| Success of 'TSuccess
-| Failure of 'TFailure
+    | Success of 'TSuccess
+    | Failure of 'TFailure
 
 let validate (id, name) =
-    if name = String.Empty then
-        Failure "Input must not be empty"
-    else
-        Success (id, name)
+    if name = String.Empty then Failure "Input must not be empty" else Success(id, name)
 
 let update input =
     let id, name = input
@@ -37,10 +36,8 @@ let send (input: User) =
     let name = input.Name
 
     match trySendResponse id name with
-    | Some s ->
-        Success (sprintf "Responding with JSON: %s" s)
-    | None ->
-        Failure "Couldn't serialize to JSON for some reason"
+    | Some s -> Success(sprintf "Responding with JSON: %s" s)
+    | None -> Failure "Couldn't serialize to JSON for some reason"
 
 let bind switchFunction twoTrackInput =
     match twoTrackInput with
@@ -58,5 +55,6 @@ let workflowResult id name =
     | Failure f -> printfn "Failed with message: %s" f
 
 workflowResult 1 ""
-workflowResult 0 "kai"
-workflowResult 1 "kai"
+workflowResult -2 "kai"
+workflowResult 3 "alice"
+workflowResult 4 "bob"

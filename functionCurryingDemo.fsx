@@ -1,5 +1,7 @@
+open System
+
 type User = { Id: int; Name: string }
-let environment = "production"
+let environment = Environment.GetEnvironmentVariable("RUNTIME_ENVIRONMENT")
 
 module WebServer =
     let get (userFromDb: int -> User) (formatter: User -> string) =
@@ -24,4 +26,5 @@ let getUserById id =
     // Call database and query for user by id
     { Id = id; Name = "Kai Ito"}
 
-printfn "Response from \"web server\" is: %s" (WebServer.get getUserById formatter)
+printfn
+    "Response from \"web server\" is: %s" (WebServer.get getUserById formatter)
