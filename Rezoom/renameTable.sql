@@ -1,0 +1,2 @@
+﻿ALTER TABLE Users
+RENAME TO People
