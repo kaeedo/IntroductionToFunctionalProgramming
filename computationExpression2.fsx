@@ -48,7 +48,7 @@ type MaybeBuilder() =
     member this.Return value =
         Some value
 
-let maybe = new MaybeBuilder()
+let maybe = MaybeBuilder()
 
 let maybeResult urlParameter =
     let maybeValue =

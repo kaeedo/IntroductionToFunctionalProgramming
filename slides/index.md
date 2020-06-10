@@ -80,7 +80,7 @@
 ### Syntax in a nutshell
 
 * ML syntax
-* Type inference
+* Statically Typed with type inference
 * Whitespace significant
 * Expression-based
 * Immutable by default
@@ -92,11 +92,11 @@
     let thisIsAString = "This is a string"
     let optionalTypeAnnotation: bool = true
 
-    let listOfInts = [ 1; 2; 3 ]
-    let listOfStrings =
-        [ "www.zuehlke.com"
-          "www.duckduckgo.com"
-          "www.microsoft.com" ]
+    let listOfFloats = [ 1.0; 2.0; 3.0 ]
+    let arrayOfStrings =
+        [| "www.zuehlke.com"
+           "www.duckduckgo.com"
+           "www.microsoft.com" |]
 
 ' let declarations are called values instead of variables
 
@@ -105,6 +105,7 @@
 ### Functions
 
 * First class functions
+* Can be passed around like other values
 * Last expression is the return "statement"
 
 <br />
@@ -397,6 +398,15 @@
     [lang=fsharp]
     let sum list = List.reduce (+) list
     let freeSum = List.reduce (+)
+
+    let batchesOf n =
+        Seq.mapi (fun i v -> i / n, v) >>
+        Seq.groupBy fst >>
+        Seq.map snd >>
+        Seq.map (Seq.map snd)
+
+    [0..10]
+    |> batchesOf 2 // [[0; 1]; [2; 3]; [4; 5]; [6; 7]; [8; 9]; [10]]
 
     let doubleAndIncrement x = x * 2 + 1
     let freeDoubleAndIncrement = (*) 2 >> (+) 1

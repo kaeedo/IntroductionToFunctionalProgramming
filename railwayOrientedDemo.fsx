@@ -4,19 +4,6 @@ type User =
     { Id: int
       Name: string }
 
-let updateNameInDb id newName =
-    if id < 0 then
-        None
-    else
-        Some
-            { Id = id
-              Name = newName }
-
-let trySendResponse id name =
-    try
-        Some(sprintf """{"id":%i, "name":"%s"}""" id name)
-    with _ -> None
-
 type Result<'TSuccess, 'TFailure> =
     | Success of 'TSuccess
     | Failure of 'TFailure
@@ -26,6 +13,13 @@ let validate (id, name) =
 
 let update input =
     let id, name = input
+    let updateNameInDb id newName =
+        if id < 0 then
+            None
+        else
+            Some
+                { Id = id
+                  Name = newName }
     let updatedUser = updateNameInDb id name
     match updatedUser with
     | Some u -> Success u
@@ -34,6 +28,11 @@ let update input =
 let send (input: User) =
     let id = input.Id
     let name = input.Name
+
+    let trySendResponse id name =
+        try
+            Some(sprintf """{"id":%i, "name":"%s"}""" id name)
+        with _ -> None
 
     match trySendResponse id name with
     | Some s -> Success(sprintf "Responding with JSON: %s" s)
@@ -48,6 +47,7 @@ let workflow =
     validate
     >> bind update
     >> bind send
+
 
 let workflowResult id name =
     match workflow (id, name) with
