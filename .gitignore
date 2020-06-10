@@ -190,3 +190,6 @@ Sample/node_modules
 .fake
 .ionide
 .ionide/symbolCache.db
+TypeProvider/bin/
+TypeProvider/obj/
+TypeProvider/.vs/
