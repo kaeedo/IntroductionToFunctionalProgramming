@@ -1,7 +1,8 @@
-open System
+open System.Text.Json
 
 type User = { Id: int; Name: string }
-let environment = Environment.GetEnvironmentVariable("RUNTIME_ENVIRONMENT")
+//let environment = "dev"
+let environment = "production"
 
 module WebServer =
     let get (userFromDb: int -> User) (formatter: User -> string) =
@@ -11,10 +12,8 @@ module WebServer =
         user |> formatter
 
 let jsonSerializer shouldMinify data =
-    if shouldMinify then
-        data.ToString()
-    else
-        sprintf "The unminified data is: %s" (data.ToString())
+    let serializerOptions = JsonSerializerOptions(WriteIndented = not shouldMinify)
+    JsonSerializer.Serialize(data, serializerOptions)
 
 // Partially apply jsonSerializer depending on environment
 let formatter =

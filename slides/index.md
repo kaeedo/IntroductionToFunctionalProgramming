@@ -1,5 +1,5 @@
 - title : Functional Programming with F#
-- description : A primer to the world of Functional Programming with F#
+- description : Introduction to F# for greater type safety in .NET
 - author : Kai Ito
 - theme : night
 - transition : default
@@ -8,7 +8,7 @@
 
 <br /><br /><br /><br />
 
-## A primer to the world of Functional Programming with F#
+## Introduction to F# for greater type safety in .NET
 
 <br /><br /><br />
 
@@ -95,7 +95,7 @@
     let listOfInts = [ 1; 2; 3 ]
     let listOfStrings =
         [ "www.zuehlke.com"
-          "www.google.com"
+          "www.duckduckgo.com"
           "www.microsoft.com" ]
 
 ' let declarations are called values instead of variables
@@ -158,15 +158,15 @@
           LastName: string
           Age: int }
 
-    let kai = { FirstName = "Kai"; LastName = "Ito"; Age = 29 }
-    let cloneOfKai = { FirstName = "Kai"; LastName = "Ito"; Age = 29 }
+    let kai = { FirstName = "Kai"; LastName = "Ito"; Age = 88 }
+    let cloneOfKai = { FirstName = "Kai"; LastName = "Ito"; Age = 88 }
 
     printfn "%b" (kai = cloneOfKai) // true
 
     let olderKai = { kai with Age = kai.Age + 1 }
 
-    printfn "%i" (olderKai.Age) // 28
-    printfn "%i" (kai.Age) // 27
+    printfn "%i" (olderKai.Age) // 89
+    printfn "%i" (kai.Age) // 88
 
 ---
 
@@ -187,7 +187,7 @@
     let circle: Shape = Circle 2.5
     let triangle: Shape = Triangle (6.1, 2.0, 3.7)
 
-    let whichShape shape =
+    let whichShape (shape: Shape) =
         match shape with
         | Rectangle (width, length) ->
             printfn "Rectangle with sides %f %f" width length
@@ -256,7 +256,7 @@
         // Logic to assign either email address or phone or both
         // Error prone
 
-        { Username = "kaiito"; Email = "kai.ito@zuehlke.com"; PhoneNumber = "089 555 1234" }
+        { Username = "kaiito"; Email = "kai.ito@zuehlke.com"; PhoneNumber = "123 456 789" }
 
 ---
 
@@ -270,8 +270,8 @@
     type SafeContactUser = { Username: string; Contact: ContactInformation }
 
     let email = Email "kai.ito@zuehlke.com"
-    let phoneNumber = PhoneNumber "089 555 1234"
-    let emailAndPhone = EmailAndPhone ("kai.ito@zuehlke.com", "089 555 1234")
+    let phoneNumber = PhoneNumber "123 456 789"
+    let emailAndPhone = EmailAndPhone ("kai.ito@zuehlke.com", "123 456 789")
 
     let user1 = { Username = "kaiito1"; Contact = email }
     let user2 = { Username = "kaiito2"; Contact = phoneNumber }

@@ -186,3 +186,7 @@ docs
 FSharp.Formatting.svclog
 _NCrunch*
 Sample/node_modules
+
+.fake
+.ionide
+.ionide/symbolCache.db

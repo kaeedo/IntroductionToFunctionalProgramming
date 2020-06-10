@@ -21,7 +21,7 @@ type PrintBuilder() =
         value
 
 
-let printer = new PrintBuilder()
+let printer = PrintBuilder()
 
 let betterPrinterWorkflow =
     printer {
